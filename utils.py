@@ -2,7 +2,7 @@ import logging
 from pyrogram.errors import InputUserDeactivated, UserNotParticipant, FloodWait, UserIsBlocked, PeerIdInvalid
 from info import AUTH_CHANNEL, LONG_IMDB_DESCRIPTION, MAX_LIST_ELM, SHORTLINK_URL, SHORTLINK_API, IS_SHORTLINK, LOG_CHANNEL, TUTORIAL, GRP_LNK, CHNL_LNK, CUSTOM_FILE_CAPTION
 from imdb import Cinemagoer 
-import asyncio
+import async
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors import FloodWait, UserIsBlocked, MessageNotModified, PeerIdInvalid
 from pyrogram import enums
@@ -154,7 +154,7 @@ async def broadcast_messages(user_id, message):
         await message.copy(chat_id=user_id)
         return True, "Success"
     except FloodWait as e:
-        await asyncio.sleep(e.x)
+        await async.sleep(e.x)
         return await broadcast_messages(user_id, message)
     except InputUserDeactivated:
         await db.delete_user(int(user_id))
@@ -179,7 +179,7 @@ async def broadcast_messages_group(chat_id, message):
             pass
         return True, "Success"
     except FloodWait as e:
-        await asyncio.sleep(e.x)
+        await async.sleep(e.x)
         return await broadcast_messages_group(chat_id, message)
     except Exception as e:
         return False, "Error"
